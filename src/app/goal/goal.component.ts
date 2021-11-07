@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Goal } from '../goal';
 import { GoalService } from '../goal-service/goal.service';
+import { AlertService } from '../alert-service/alert.service';
 
 @Component({
   selector: 'app-goal',
@@ -12,8 +13,11 @@ export class GoalComponent implements OnInit {
 
   goals: Goal[];
 
-  constructor(goalService: GoalService) {
+  alertService: AlertService;
+
+  constructor(goalService: GoalService, alertService: AlertService) {
     this.goals = goalService.getGoals()
+    this.alertService = alertService;
   }
 
   addNewGoal(goal: any) {
@@ -33,12 +37,15 @@ export class GoalComponent implements OnInit {
   }
   deleteGoal(isComplete:boolean, index:number) {
     if (isComplete) {
-      let toDelete = confirm(`Are you sure you want to delete ${this.goals[index].name}?`)     
-       if (toDelete) {
+      let toDelete = confirm(`Are you sure you want to delete ${this.goals[index].name}?`)
+
+      if (toDelete) {
         this.goals.splice(index, 1)
+        this.alertService.alertMe("The goal has been deleted")
       }
     }
   }
+
 ngOnInit(): void {
   }
 }
