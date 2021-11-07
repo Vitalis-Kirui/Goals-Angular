@@ -5,13 +5,11 @@
 
     <ul>
 
-        <li *ngFor='let goal of goals'>
-
-            <strong>{{goal.name}}</strong>
-
-            <app-goal-detail [goal]='goal'></app-goal-detail>
-
-        </li>
+        <div *ngFor='let goal of goals;let i = index'>
+            <li><strong>{{goal.name}}</strong></li>
+            <app-goal-detail *ngIf='goal.showDescription' [goal]='goal' (isComplete)='completeGoal($event,i)'></app-goal-detail>
+            <button (click)='toggleDetails(i)'>Toggle Details</button>
+        </div>
 
     </ul>
 
