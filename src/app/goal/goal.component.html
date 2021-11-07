@@ -7,7 +7,9 @@
 
         <li *ngFor='let goal of goals'>
 
-            {{goal.name}}
+            <strong>{{goal.name}}</strong>
+
+            <app-goal-detail [goal]='goal'></app-goal-detail>
 
         </li>
 
